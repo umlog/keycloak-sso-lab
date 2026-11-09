@@ -1,0 +1,72 @@
+{
+  "realm": "sso-lab",
+  "displayName": "SSO Lab",
+  "enabled": true,
+  "sslRequired": "external",
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+  "accessTokenLifespan": 300,
+  "clients": [
+    {
+      "clientId": "service-a",
+      "name": "Service A - SecureNote",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "${SERVICE_A_CLIENT_SECRET}",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "rootUrl": "http://service-a.localhost:3001",
+      "redirectUris": ["http://service-a.localhost:3001/callback"],
+      "webOrigins": ["http://service-a.localhost:3001"],
+      "frontchannelLogout": false,
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://service-a.localhost:3001/logged-out",
+        "backchannel.logout.url": "http://127.0.0.1:3001/backchannel-logout",
+        "backchannel.logout.session.required": "true"
+      }
+    },
+    {
+      "clientId": "service-b",
+      "name": "Service B - SignDesk",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "${SERVICE_B_CLIENT_SECRET}",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "rootUrl": "http://service-b.localhost:3002",
+      "redirectUris": ["http://service-b.localhost:3002/callback"],
+      "webOrigins": ["http://service-b.localhost:3002"],
+      "frontchannelLogout": false,
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://service-b.localhost:3002/logged-out",
+        "backchannel.logout.url": "http://127.0.0.1:3002/backchannel-logout",
+        "backchannel.logout.session.required": "true"
+      }
+    }
+  ],
+  "users": [
+    {
+      "username": "alice",
+      "enabled": true,
+      "email": "alice@sso-lab.test",
+      "emailVerified": true,
+      "firstName": "Alice",
+      "lastName": "Kim",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "${SSO_TEST_PASSWORD}",
+          "temporary": false
+        }
+      ]
+    }
+  ]
+}
